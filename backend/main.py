@@ -16,7 +16,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
+SPECIAL_FAVICONS = {
+    "police.uk": "https://www.police.uk/SysSiteAssets/media/images/brand/police.uk/police-uk-favicon.png?w=144&h=144",
+    # more special favicons can be added here if necessary
+}
 
 @app.get("/data", response_model=list[Data])
 def get_data() -> list[Data]:
@@ -55,10 +58,13 @@ def get_data() -> list[Data]:
                 parsed = urlparse(raw_url)
                 domain = parsed.netloc or parsed.path
 
-                if "police.uk" in domain: 
-                    favicon_url = "https://www.police.uk/SysSiteAssets/media/images/brand/police.uk/police-uk-favicon.png?w=144&h=144"
-                else: 
-                    favicon_url = f"https://{domain}/favicon.ico"
+                for domain_override, favicon_override in SPECIAL_FAVICONS.items():
+                    if domain_override in domain:
+                        favicon_url = favicon_override
+                        break
+                    else:
+                        favicon_url = f"https://{domain}/favicon.ico"
+                       
 
                 source["favicon"] = favicon_url
                 print(f"Added favicon for source '{source.get('title', 'Unknown')}': {favicon_url}")
