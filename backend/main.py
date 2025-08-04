@@ -16,6 +16,8 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
+
 @app.get("/data", response_model=list[Data])
 def get_data() -> list[Data]:
     try: 
@@ -53,10 +55,10 @@ def get_data() -> list[Data]:
                 parsed = urlparse(raw_url)
                 domain = parsed.netloc or parsed.path
 
-                if domain: 
-                    favicon_url = f"https://{domain}/favicon.ico"
+                if "police.uk" in domain: 
+                    favicon_url = "https://www.police.uk/SysSiteAssets/media/images/brand/police.uk/police-uk-favicon.png?w=144&h=144"
                 else: 
-                    favicon_url = ""
+                    favicon_url = f"https://{domain}/favicon.ico"
 
                 source["favicon"] = favicon_url
                 print(f"Added favicon for source '{source.get('title', 'Unknown')}': {favicon_url}")
