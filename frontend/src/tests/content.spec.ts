@@ -5,9 +5,11 @@ test("Content loads and displays data", async ({ page }) => {
 
   await expect(page.locator("text=Loading...")).toBeVisible();
 
+  await page.waitForResponse((response) => response.url().includes("/data") && response.status() === 200);
+
   const categories = await page.locator("h2").allTextContents();
   expect(categories.length).toBeGreaterThan(0);
 
   const links = page.locator("a");
-  await expect(links.first()).toHaveAttribute("href");
+  await expect(links.first()).toHaveAttribute("href", /https/);
 });
