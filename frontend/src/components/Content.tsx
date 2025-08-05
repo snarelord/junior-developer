@@ -16,7 +16,7 @@ export default function Content({ item }: Props) {
   }
 
   function formatNumberedContent(text: string): string {
-    return text.replace(/(\d+\.\s*[^.]+?\.)\s*/g, (p1) => p1.trim() + "\n");
+    return text.replace(/(\d+\\s*[^.]+?\.)\s*/g, (p1) => p1.trim() + "\n");
   }
 
   return (
