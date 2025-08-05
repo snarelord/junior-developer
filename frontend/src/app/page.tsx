@@ -1,15 +1,10 @@
-"use client";
-
 import Image from "next/image";
 import Content from "@/components/Content";
 import styles from "./page.module.css";
-import { useState } from "react";
 import { fetchData } from "../app/utils/fetchData";
 import { DataItem } from "@/types/types";
 
 export default async function Home() {
-  const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string | null>(null);
   const data = await fetchData();
 
   // Group data by category
@@ -33,9 +28,6 @@ export default async function Home() {
       });
   }
 
-  if (loading) return <div className={styles.loading}>Loading...</div>;
-  if (error) return <div className={styles.error}>Error: {error}</div>;
-
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -45,7 +37,6 @@ export default async function Home() {
           <h2 className={styles.subtitle}>Junior Developer Practical</h2>
         </div>
 
-        {/* Grouped and rendered content per category */}
         {Object.entries(groupedData).map(([category, items]) => (
           <div key={category} className={styles.categorySection}>
             <h2 className={styles.category}>{normaliseCategory(category)}</h2>
