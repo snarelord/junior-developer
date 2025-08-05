@@ -68,7 +68,7 @@ The `Content.tsx` component has been provided for you to:
 ## Challenges Faced
 
 - **Python:** This project was my introduction to Python. It was a great crash course learning about FastAPI, Pydantic models and writing unit tests with Pytest.
-- **Next.js Data Fetching:** Fetched data asynchronously in 'page.ts' and pre rendered with grouped content.
+- **Next.js Data Fetching:** Fetched data asynchronously in 'page.tsx' and pre rendered with grouped content.
 - **Playwright Testing:** Encountered timing issues with async data loading times and solved through explicit waits.
 - **React Components:** Refactored to pass props to the reusable `<Content />` component instead of fetching inside the component.
 - **CI/CD:** Added caching of Playwright dependencies in GitHub Actions to reduce the build times and stabilise test suite.
