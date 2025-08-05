@@ -27,6 +27,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      - name: Cache Playwright browsers
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-playwright-
+
       - name: Install dependencies
         run: |
           cd frontend
@@ -45,7 +53,7 @@ jobs:
       - name: Test Playwright
         run: |
           cd frontend
-          npx playwright install --with-deps
+          npx playwright install
           npm run test:e2e
 
       - name: Ping Backend
