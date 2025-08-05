@@ -1,7 +1,11 @@
 import { test, expect } from "@playwright/test";
 
 test("Content loads and displays data", async ({ page }) => {
-  await page.goto(process.env.NEXT_PUBLIC_FRONTEND_URL || "http://localhost:3000");
+  const url = process.env.NEXT_PUBLIC_FRONTEND_URL;
+  if (!url) {
+    throw new Error("NEXT_PUBLIC_FRONTEND_URL is not defined");
+  }
+  await page.goto(url);
 
   await expect(page.locator("text=Loading...")).toBeVisible();
 
